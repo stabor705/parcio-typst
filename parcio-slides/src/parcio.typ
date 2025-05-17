@@ -11,7 +11,11 @@
 #let ovgu-blue = rgb("#0068B4")
 #let ovgu-darkgray = rgb("#606060")
 #let ovgu-lightgray = rgb("#C0C0C0").lighten(50%)
+#let agh-lightgreen = rgb(0, 105, 60)
+#let agh-red = rgb(167, 25, 48)
 #let ovgu-orange = rgb("#F39100")
+
+#let alt-font-color = white
 
 #let m-pages = counter("m-page")
 #let m-footer = state("m-footer", [])
@@ -20,7 +24,7 @@
   let ratio = m-pages.get().first() / m-pages.final().first()
   grid(
     columns: (ratio * 100%, 1fr),
-    rect(fill: ovgu-purple, width: 100%),
+    rect(fill: agh-red, width: 100%),
     rect(fill: m-lighter-brown, width: 100%),
   )
 }
@@ -109,7 +113,7 @@
 
       // Middle part: line separator.
       v(0.5em)
-      line(length: 100%, stroke: 0.75pt + ovgu-purple)
+      line(length: 100%, stroke: 0.75pt + agh-red)
       v(1.5em)
 
       // Bottom part: Author, date, institution, etc.
@@ -171,9 +175,9 @@
         m-pages.step()
       }
 
-      block(fill: ovgu-lightgray, inset: 1em, width: 100%, height: 100%)[
+      block(fill: agh-lightgreen, inset: 1em, width: 100%, height: 100%)[
         #set align(horizon)
-        #set text(fill: ovgu-blue, 1em)
+        #set text(fill: alt-font-color, 1em)
 
         *#title*#h(1fr)
         #if show-current-section [
@@ -247,3 +251,12 @@
 
 // Simple orange TODO box.
 #let todo = rect.with(fill: ovgu-orange, stroke: black + 0.5pt, radius: 0.25em, width: 100%)
+
+#let definition(term, description) = {
+  set block(inset: 10pt, width: 100%)
+  set text(white)
+  stack(
+    block(fill: agh-red, radius: (top: 0.2em, bottom: 0cm), [#strong([Def:]) #term]),
+    block(fill: agh-red.lighten(40%), radius: (top: 0cm, bottom: 0.2em), description)
+  )
+}
